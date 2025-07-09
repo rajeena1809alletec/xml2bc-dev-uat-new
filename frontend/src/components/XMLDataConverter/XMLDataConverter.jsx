@@ -497,7 +497,8 @@ const XMLDataConverter = () => {
                 codeTypeObjectId9: getCode(8, 'TypeObjectId'),
                 codeValueObjectId9: getCode(8, 'ValueObjectId'),
 
-                uploadDate: selectedDate
+                uploadDate: selectedDate,
+                activityType: "Project"
             };
         });
 
@@ -667,7 +668,8 @@ const XMLDataConverter = () => {
                 codeTypeObjectId9: getCode(8, 'TypeObjectId'),
                 codeValueObjectId9: getCode(8, 'ValueObjectId'),
 
-                uploadDate: selectedDate
+                uploadDate: selectedDate,
+                activityType: "BaseLine"
             };
         });
 
@@ -846,7 +848,7 @@ const XMLDataConverter = () => {
         try {
 
             let activityBatchCount = 0;
-            const activityBatch = Math.ceil( (activityItems.length + baselineActivityItems.length) / BATCH_SIZE);
+            const activityBatch = Math.ceil((activityItems.length + baselineActivityItems.length) / BATCH_SIZE);
 
             for (let i = 0; i < activityItems.length; i += BATCH_SIZE) {
                 const batchIdx = i / BATCH_SIZE;
