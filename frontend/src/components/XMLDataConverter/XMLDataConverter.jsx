@@ -588,7 +588,7 @@ const XMLDataConverter = () => {
         let token;
         try {
             // const res = await fetch('https://xml-data-extraction-backend.onrender.com/getToken');
-            const res = await fetch('https://xml2bc-dev-uat-backend-new.onrender.com/getToken');
+            const res = await fetch('https://xml2bc-dev-uat-new-backend.onrender.com/getToken');
             // const res = await fetch('http://localhost:3001/getToken')
             const data = await res.json();
             token = data.access_token;
