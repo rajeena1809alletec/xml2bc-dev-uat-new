@@ -700,6 +700,7 @@ const XMLDataConverter = () => {
             console.log("token: ", token)
         } catch (error) {
             setStatus('Failed to fetch access token.');
+            setProgressError(true);
             return;
         }
 
