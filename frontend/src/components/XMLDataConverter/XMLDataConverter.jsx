@@ -567,6 +567,110 @@ const XMLDataConverter = () => {
             uploadDate: selectedDate,
         }));
 
+
+        const baselineActivityItems = baselineActivityArr.map((node) => {
+            const udf = node.UDF || {};
+            const code = node.Code || [];
+
+            const getCode = (idx, key) =>
+                parseIntOrNull(textVal(code[idx]?.[key]));
+
+            return {
+                objectId: parseIntOrNull(textVal(node.ObjectId)),
+                guid: (textVal(node.GUID) || "").replace(/[{}]/g, ""),
+                id: textVal(node.Id) || "",
+                name: textVal(node.Name) || "",
+                status: textVal(node.Status) || "",
+                type: textVal(node.Type) || "",
+                calendarObjectId: parseIntOrNull(textVal(node.CalendarObjectId)),
+                projectObjectId: parseIntOrNull(textVal(node.ProjectObjectId)),
+                wbsObjectId: parseIntOrNull(textVal(node.WBSObjectId)),
+                startDate: parseDateOrDefault(textVal(node.StartDate)),
+                finishDate: parseDateOrDefault(textVal(node.FinishDate)),
+                plannedStartDate: parseDateOrDefault(textVal(node.PlannedStartDate)),
+                plannedFinishDate: parseDateOrDefault(textVal(node.PlannedFinishDate)),
+                remainingEarlyStartDate: parseDateOrDefault(textVal(node.RemainingEarlyStartDate)),
+                remainingEarlyFinishDate: parseDateOrDefault(textVal(node.RemainingEarlyFinishDate)),
+                remainingLateStartDate: parseDateOrDefault(textVal(node.RemainingLateStartDate)),
+                remainingLateFinishDate: parseDateOrDefault(textVal(node.RemainingLateFinishDate)),
+                actualStartDate: parseDateOrDefault(textVal(node.ActualStartDate)),
+                actualFinishDate: parseDateOrDefault(textVal(node.ActualFinishDate)),
+                expectedFinishDate: parseDateOrDefault(textVal(node.ExpectedFinishDate)),
+                primaryConstraintDate: parseDateOrDefault(textVal(node.PrimaryConstraintDate)),
+                secondaryConstraintDate: parseDateOrDefault(textVal(node.SecondaryConstraintDate)),
+                suspendDate: parseDateOrDefault(textVal(node.SuspendDate)),
+                resumeDate: parseDateOrDefault(textVal(node.ResumeDate)),
+                durationType: textVal(node.DurationType) || "",
+                primaryConstraintType: textVal(node.PrimaryConstraintType) || "",
+                secondaryConstraintType: textVal(node.SecondaryConstraintType) || "",
+                percentCompleteType: textVal(node.PercentCompleteType) || "",
+                levelingPriority: textVal(node.LevelingPriority) || "",
+                notesToResources: textVal(node.NotesToResources) || "",
+                feedback: textVal(node.Feedback) || "",
+                isNewFeedback: parseBool(textVal(node.IsNewFeedback)),
+                reviewRequired: parseBool(textVal(node.ReviewRequired)),
+                autoComputeActuals: parseBool(textVal(node.AutoComputeActuals)),
+                estimatedWeight: parseFloatOrNull(textVal(node.EstimatedWeight)),
+                durationPercentComplete: parseFloatOrNull(textVal(node.DurationPercentComplete)),
+                scopePercentComplete: parseFloatOrNull(textVal(node.ScopePercentComplete)),
+                unitsPercentComplete: parseFloatOrNull(textVal(node.UnitsPercentComplete)),
+                nonLaborUnitsPerComplete: parseFloatOrNull(textVal(node.NonLaborUnitsPercentComplete)),
+                percentComplete: parseFloatOrNull(textVal(node.PercentComplete)),
+                physicalPercentComplete: parseFloatOrNull(textVal(node.PhysicalPercentComplete)),
+                actualDuration: parseFloatOrNull(textVal(node.ActualDuration)),
+                plannedDuration: parseFloatOrNull(textVal(node.PlannedDuration)),
+                remainingDuration: parseFloatOrNull(textVal(node.RemainingDuration)),
+                atCompletionDuration: parseFloatOrNull(textVal(node.AtCompletionDuration)),
+                plannedLaborUnits: parseFloatOrNull(textVal(node.PlannedLaborUnits)),
+                remainingLaborUnits: parseFloatOrNull(textVal(node.RemainingLaborUnits)),
+                atCompletionLaborUnits: parseFloatOrNull(textVal(node.AtCompletionLaborUnits)),
+                actualLaborUnits: parseFloatOrNull(textVal(node.ActualLaborUnits)),
+                actualThisPeriodLaborUnits: parseFloatOrNull(textVal(node.ActualThisPeriodLaborUnits)),
+                plannedNonLaborUnits: parseFloatOrNull(textVal(node.PlannedNonLaborUnits)),
+                remainingNonLaborUnits: parseFloatOrNull(textVal(node.RemainingNonLaborUnits)),
+                atCompletionNonLaborUnits: parseFloatOrNull(textVal(node.AtCompletionNonLaborUnits)),
+                actualNonLaborUnits: parseFloatOrNull(textVal(node.ActualNonLaborUnits)),
+                actThisPeriodNonLaborUnits: parseFloatOrNull(textVal(node.ActualThisPeriodNonLaborUnits)),
+                plannedLaborCost: parseFloatOrNull(textVal(node.PlannedLaborCost)),
+                remainingLaborCost: parseFloatOrNull(textVal(node.RemainingLaborCost)),
+                atCompletionLaborCost: parseFloatOrNull(textVal(node.AtCompletionLaborCost)),
+                actualLaborCost: parseFloatOrNull(textVal(node.ActualLaborCost)),
+                actualThisPeriodLaborCost: parseFloatOrNull(textVal(node.ActualThisPeriodLaborCost)),
+                plannedNonLaborCost: parseFloatOrNull(textVal(node.PlannedNonLaborCost)),
+                remainingNonLaborCost: parseFloatOrNull(textVal(node.RemainingNonLaborCost)),
+                atCompletionNonLaborCost: parseFloatOrNull(textVal(node.AtCompletionNonLaborCost)),
+                actualNonLaborCost: parseFloatOrNull(textVal(node.ActualNonLaborCost)),
+                actThisPeriodNonLaborCost: parseFloatOrNull(textVal(node.ActualThisPeriodNonLaborCost)),
+                atCompletionExpenseCost: parseFloatOrNull(textVal(node.AtCompletionExpenseCost)),
+                primaryResourceObjectId: parseIntOrNull(textVal(node.PrimaryResourceObjectId)),
+
+                udfTypeObjectId: parseIntOrNull(textVal(udf.TypeObjectId)),
+                udfTextValue: textVal(udf.TextValue) || "",
+
+                // Codes 1–9 using inline helper
+                codeTypeObjectId1: getCode(0, 'TypeObjectId'),
+                codeValueObjectId1: getCode(0, 'ValueObjectId'),
+                codeTypeObjectId2: getCode(1, 'TypeObjectId'),
+                codeValueObjectId2: getCode(1, 'ValueObjectId'),
+                codeTypeObjectId3: getCode(2, 'TypeObjectId'),
+                codeValueObjectId3: getCode(2, 'ValueObjectId'),
+                codeTypeObjectId4: getCode(3, 'TypeObjectId'),
+                codeValueObjectId4: getCode(3, 'ValueObjectId'),
+                codeTypeObjectId5: getCode(4, 'TypeObjectId'),
+                codeValueObjectId5: getCode(4, 'ValueObjectId'),
+                codeTypeObjectId6: getCode(5, 'TypeObjectId'),
+                codeValueObjectId6: getCode(5, 'ValueObjectId'),
+                codeTypeObjectId7: getCode(6, 'TypeObjectId'),
+                codeValueObjectId7: getCode(6, 'ValueObjectId'),
+                codeTypeObjectId8: getCode(7, 'TypeObjectId'),
+                codeValueObjectId8: getCode(7, 'ValueObjectId'),
+                codeTypeObjectId9: getCode(8, 'TypeObjectId'),
+                codeValueObjectId9: getCode(8, 'ValueObjectId'),
+
+                uploadDate: selectedDate
+            };
+        });
+
         // setProgress(20);
 
         console.log("Resources: ", resources)
@@ -574,11 +678,12 @@ const XMLDataConverter = () => {
         console.log("WBS: ", wbs)
         console.log("Activity: ", activityItems)
         console.log("ResourceAssignment: ", resourceAssignmentItems)
+        console.log("BaselineResourceAssignments: ", baselineActivityItems)
 
 
 
 
-        const totalItems = resources.length + projects.length + wbs.length + activityItems.length + resourceAssignmentItems.length;
+        const totalItems = resources.length + projects.length + wbs.length + activityItems.length + resourceAssignmentItems.length + baselineActivityItems.length;
 
         let processedItems = 0;
 
@@ -740,7 +845,7 @@ const XMLDataConverter = () => {
         try {
 
             let activityBatchCount = 0;
-            const activityBatch = Math.ceil(activityItems.length / BATCH_SIZE);
+            const activityBatch = Math.ceil( (activityItems.length + baselineActivityItems.length) / BATCH_SIZE);
 
             for (let i = 0; i < activityItems.length; i += BATCH_SIZE) {
                 const batchIdx = i / BATCH_SIZE;
@@ -774,8 +879,41 @@ const XMLDataConverter = () => {
 
 
             }
+
+            for (let i = 0; i < baselineActivityItems.length; i += BATCH_SIZE) {
+                const batchIdx = i / BATCH_SIZE;
+                const activityArray = baselineActivityItems.slice(i, i + BATCH_SIZE);
+                console.log(`activityArray:  `, activityArray)
+
+                const activityObject = {
+                    "primaryKey": "",
+                    "activitys": activityArray
+                };
+
+                const activityResponse = await fetch(activityEndpoints, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(activityObject)
+                })
+                if (!activityResponse.ok) throw new Error(`Activity error: ${await activityResponse.text()}`);
+
+                processedItems += activityArray.length;
+                activityBatchCount++;
+
+                const isLastBatch = activityBatchCount === activityBatch;
+
+                if (activityBatchCount % 5 === 0 || isLastBatch) {
+                    const tempProgress = 20 + Math.round((processedItems / totalItems) * 80);
+                    setProgress(tempProgress);
+                }
+
+
+            }
         } catch (err) {
-            setStatus(`Error processing Activity data: ${err.message}`);
+            setStatus(`Error processing BaselineActivity data: ${err.message}`);
             setProgressError(true);
 
             return;

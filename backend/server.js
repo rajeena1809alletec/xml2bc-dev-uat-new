@@ -16,7 +16,7 @@ const cors = require("cors");
 const app = express();
 
 const allowedOrigins = [
-  'https://xml2bc-dev-uat-new-frontend.onrender.com/',
+  'https://xml2bc-dev-uat-new-frontend.onrender.com',
   'http://localhost:5173'
 ];
 
